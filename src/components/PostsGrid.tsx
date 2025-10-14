@@ -33,16 +33,22 @@ export default function PostsGrid() {
       <Masonry
         breakpointCols={{
           default: 4,
-          860: 3,
-          500: 2,
+          1100: 3,
+          768: 2,
         }}
-        className="flex -ml-4"
-        columnClassName="pl-4"
+        className="flex -ml-4 w-auto"
+        columnClassName="pl-4 bg-clip-padding"
       >
         {images.map((src, index) => {
           return (
-            <div key={index} className="mb-4">
-              <Image src={src} alt="" width={500} height={500} />
+            <div key={index} className="mb-4 break-inside-avoid">
+              <Image
+                src={src}
+                alt=""
+                width={500}
+                height={500}
+                className="w-full h-auto"
+              />
             </div>
           );
         })}
