@@ -4,12 +4,17 @@ import { prisma } from '@/db';
 import { CheckIcon, ChevronLeft, CogIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 export default async function ProfilePage() {
   const session = await auth();
   const profile = await prisma.profile.findFirstOrThrow({
-    where: { email: session?.user?.email },
+    where: { email: session?.user?.email as string },
   });
+
+  if (!profile) {
+    redirect('/settings');
+  }
 
   return (
     <main>

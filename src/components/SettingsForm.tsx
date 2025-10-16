@@ -1,7 +1,7 @@
 'use client';
 
 import { updateProfile } from '@/actions';
-import { Profile } from '@/generated/prisma';
+import { Profile } from '@prisma/client';
 import { Button, TextArea, TextField } from '@radix-ui/themes';
 import { CloudUploadIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
@@ -14,7 +14,6 @@ export default function SettingsForm({
   profile: Profile;
 }) {
   const router = useRouter();
-
   return (
     <form
       action={async (data: FormData) => {
