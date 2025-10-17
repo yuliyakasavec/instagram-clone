@@ -5,6 +5,7 @@ import { Profile } from '@prisma/client';
 import { Button, TextArea, TextField } from '@radix-ui/themes';
 import { CloudUploadIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useEffect, useRef, useState } from 'react';
 
 export default function SettingsForm({
   userEmail,
@@ -14,6 +15,25 @@ export default function SettingsForm({
   profile: Profile;
 }) {
   const router = useRouter();
+  const fileInRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File | null>(null);
+  const [avatarUrl, setAvatarUrl] = useState(profile.avatar);
+
+  useEffect(() => {
+    if (file) {
+      const data = new FormData();
+      data.set('file', file);
+      fetch('/api/upload', {
+        method: 'POST',
+        body: data,
+      }).then((response) => {
+        response.json().then((url) => {
+          setAvatarUrl(url);
+        });
+      });
+    }
+  }, [file]);
+
   return (
     <form
       action={async (data: FormData) => {
@@ -22,12 +42,25 @@ export default function SettingsForm({
         router.refresh();
       }}
     >
+      <input type="hidden" name="avatar" value={avatarUrl} />
       <div className="flex gap-4 items-center">
         <div>
-          <div className="bg-gray-400 size-24 rounded-full"></div>
+          <div className="bg-gray-400 size-24 rounded-full overflow-hidden aspect-square shadow-md shadow-gray-400">
+            <img className="" src={avatarUrl} alt="" />
+          </div>
         </div>
         <div>
-          <Button variant="surface">
+          <input
+            type="file"
+            ref={fileInRef}
+            className="hidden"
+            onChange={(ev) => setFile(ev.target.files?.[0])}
+          />
+          <Button
+            type="button"
+            variant="surface"
+            onClick={() => fileInRef.current?.click()}
+          >
             <CloudUploadIcon />
             Change avatar
           </Button>

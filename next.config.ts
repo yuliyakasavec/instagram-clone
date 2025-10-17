@@ -11,6 +11,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'picsum.photos',
       },
+      {
+        protocol: 'https',
+        hostname: '*.mypinata.cloud',
+        port: '',
+        pathname: '/files/**',
+      },
     ],
   },
   webpack: (config) => {

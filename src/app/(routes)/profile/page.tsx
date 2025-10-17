@@ -39,10 +39,11 @@ export default async function ProfilePage() {
           <div className="size-44 p-2 bg-white rounded-full">
             <div className="size-40 aspect-square overflow-hidden rounded-full">
               <Image
-                src="https://img.freepik.com/free-photo/front-view-business-woman-suit_23-2148603018.jpg"
+                src={profile.avatar || ''}
                 alt=""
                 width={200}
                 height={200}
+                priority
               />
             </div>
           </div>

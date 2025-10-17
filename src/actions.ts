@@ -9,6 +9,7 @@ export async function updateProfile(data: FormData, userEmail: string) {
     name: data.get('name') as string,
     subtitle: data.get('subtitle') as string,
     bio: data.get('bio') as string,
+    avatar: data.get('avatar') as string,
   };
   await prisma.profile.upsert({
     where: {
