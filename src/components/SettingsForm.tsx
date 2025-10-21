@@ -42,11 +42,11 @@ export default function SettingsForm({
         router.refresh();
       }}
     >
-      <input type="hidden" name="avatar" value={avatarUrl} />
+      <input type="hidden" name="avatar" value={avatarUrl || ''} />
       <div className="flex gap-4 items-center">
         <div>
           <div className="bg-gray-400 size-24 rounded-full overflow-hidden aspect-square shadow-md shadow-gray-400">
-            <img className="" src={avatarUrl} alt="" />
+            <img className="" src={avatarUrl || ''} alt="" />
           </div>
         </div>
         <div>
@@ -54,7 +54,7 @@ export default function SettingsForm({
             type="file"
             ref={fileInRef}
             className="hidden"
-            onChange={(ev) => setFile(ev.target.files?.[0])}
+            onChange={(ev) => setFile(ev.target.files?.[0] || null)}
           />
           <Button
             type="button"
