@@ -1,10 +1,11 @@
 import { auth } from '@/auth';
-import PostsGrid from '@/components/PostsGrid';
+import ProfilePosts from '@/components/ProfilePosts';
 import { prisma } from '@/db';
 import { CheckIcon, ChevronLeft, CogIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 
 export default async function ProfilePage() {
   const session = await auth();
@@ -18,7 +19,7 @@ export default async function ProfilePage() {
 
   return (
     <main>
-      <section className="flex justify-between items-center">
+      <section className="flex justify-between items-center mx-6">
         <button>
           <ChevronLeft />
         </button>
@@ -67,7 +68,9 @@ export default async function ProfilePage() {
         </div>
       </section>
       <section className="mt-4">
-        <PostsGrid />
+        <Suspense fallback="Loading...">
+          <ProfilePosts email={profile.email} />
+        </Suspense>
       </section>
     </main>
   );

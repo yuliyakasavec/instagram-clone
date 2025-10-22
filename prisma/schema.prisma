@@ -19,7 +19,7 @@ model Profile {
 
 model Post {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  author      String
+  author      String // email
   image       String
   description String
   likesCount  Int      @default(0)

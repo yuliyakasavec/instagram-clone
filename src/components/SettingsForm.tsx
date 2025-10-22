@@ -7,13 +7,7 @@ import { CloudUploadIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-export default function SettingsForm({
-  userEmail,
-  profile,
-}: {
-  userEmail: string;
-  profile: Profile;
-}) {
+export default function SettingsForm({ profile }: { profile: Profile }) {
   const router = useRouter();
   const fileInRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
@@ -37,7 +31,7 @@ export default function SettingsForm({
   return (
     <form
       action={async (data: FormData) => {
-        await updateProfile(data, userEmail);
+        await updateProfile(data);
         router.push('/profile');
         router.refresh();
       }}
