@@ -4,6 +4,9 @@ import { prisma } from '@/db';
 import Image from 'next/image';
 import { Suspense } from 'react';
 import { uniq } from 'lodash';
+import { BookmarkIcon } from 'lucide-react';
+import LikesInfo from '@/components/LikesInfo';
+import { getSessionEmailOrThrow } from '@/actions';
 
 export default async function SinglePostPage({
   params,
@@ -23,6 +26,12 @@ export default async function SinglePostPage({
   });
   const commentsAuthors = await prisma.profile.findMany({
     where: { email: { in: uniq(comments.map((c) => c.author)) } },
+  });
+  const myLike = await prisma.like.findFirst({
+    where: {
+      author: await getSessionEmailOrThrow(),
+      postId: post.id,
+    },
   });
 
   return (
@@ -56,7 +65,15 @@ export default async function SinglePostPage({
               </div>
             ))}
           </div>
-          <div className="pt-8 border-t mt-8 border-t-gray-400">
+          <div className="flex text-gray-700 items-center gap-2 justify-between py-4 mt-4 border-t border-t-gray-300">
+            <LikesInfo post={post} sessionLike={myLike} />
+            <div className="flex items-center">
+              <button>
+                <BookmarkIcon />
+              </button>
+            </div>
+          </div>
+          <div className="pt-8 border-t border-t-gray-400">
             <Suspense>
               <SessionCommentForm postId={post.id} />
             </Suspense>
