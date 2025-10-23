@@ -9,12 +9,12 @@ import { Suspense } from 'react';
 
 export default async function ProfilePage() {
   const session = await auth();
-  const profile = await prisma.profile.findFirstOrThrow({
+  const profile = await prisma.profile.findFirst({
     where: { email: session?.user?.email as string },
   });
 
   if (!profile) {
-    redirect('/settings');
+    return redirect('/settings');
   }
 
   return (
