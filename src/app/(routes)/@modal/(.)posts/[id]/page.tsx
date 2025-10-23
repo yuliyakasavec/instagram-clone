@@ -1,13 +1,18 @@
 import { getSinglePostData } from '@/actions';
+import Modal from '@/components/Modal';
 import SinglePostContent from '@/components/SinglePostContent';
 
-export default async function SinglePostPage({
+export default async function PostInModal({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
   const { id } = await params;
   const data = await getSinglePostData(id);
 
-  return <SinglePostContent {...data} />;
+  return (
+    <Modal>
+      <SinglePostContent {...data} />
+    </Modal>
+  );
 }

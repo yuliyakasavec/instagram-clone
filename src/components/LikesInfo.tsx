@@ -11,7 +11,7 @@ export default function LikesInfo({
   sessionLike,
 }: {
   post: Post;
-  sessionLike: Like;
+  sessionLike: Like | null;
 }) {
   const router = useRouter();
   const [likedByMe, setLikedByMe] = useState(!!sessionLike);
