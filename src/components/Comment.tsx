@@ -14,7 +14,7 @@ export default function Comment({
   return (
     <div className="flex gap-2">
       <div>
-        <Avatar src={authorProfile?.avatar || ''} />
+        <Avatar src={authorProfile?.avatar || ''} size={34} />
       </div>
       <div className="w-full">
         <div className="flex justify-between gap-2">

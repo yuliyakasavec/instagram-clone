@@ -1,9 +1,14 @@
 import Image from 'next/image';
 
-export default function Avatar({ src }: { src: string }) {
+interface AvatarProps {
+  src: string;
+  size?: number;
+}
+
+export default function Avatar({ src, size = 40 }: AvatarProps) {
   return (
     <div className="aspect-square overflow-hidden rounded-full">
-      <Image src={src} alt="" width={65} height={65} />
+      <Image src={src} alt="" width={size} height={size} />
     </div>
   );
 }

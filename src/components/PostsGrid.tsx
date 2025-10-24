@@ -19,7 +19,7 @@ export default function PostsGrid({ posts }: { posts: Post[] }) {
         {posts.map((post, index) => {
           return (
             <Link href={`/posts/${post.id}`} key={post.id}>
-              <img src={post.image} alt="" className="mb-4" />
+              <img src={post.image} alt="" className="mb-4 rounded-lg" />
             </Link>
           );
         })}

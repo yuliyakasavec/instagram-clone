@@ -30,7 +30,7 @@ export default function CommentForm({
       <input type="hidden" name="postId" value={postId} />
       <div className="flex gap-2">
         <div>
-          <Avatar src={avatar} />
+          <Avatar src={avatar} size={54} />
         </div>
         <div className="w-full flex flex-col gap-2">
           <TextArea
