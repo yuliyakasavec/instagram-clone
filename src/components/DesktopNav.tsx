@@ -11,8 +11,8 @@ import logo from '../app/ig.png';
 
 export default function DesktopNav() {
   return (
-    <div className="hidden lg:block p-4 w-48 shadow-md shadow-gray-400">
-      <div className="top-0 sticky">
+    <div className="hidden lg:block px-4 pb-4 w-48 shadow-md shadow-gray-400">
+      <div className="top-4 sticky">
         <Image
           src={logo}
           alt="Logo"

@@ -9,9 +9,11 @@ import { useState } from 'react';
 export default function LikesInfo({
   post,
   sessionLike,
+  showText = true,
 }: {
   post: Post;
   sessionLike: Like | null;
+  showText?: boolean;
 }) {
   const router = useRouter();
   const [likedByMe, setLikedByMe] = useState(!!sessionLike);
@@ -33,7 +35,7 @@ export default function LikesInfo({
       <button type="submit" className="">
         <HeartIcon className={likedByMe ? 'text-red-500 fill-red-500' : ''} />
       </button>
-      {post.likesCount} people like this
+      {showText && <p>{post.likesCount} people like this</p>}
     </form>
   );
 }
