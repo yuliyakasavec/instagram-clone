@@ -1,12 +1,17 @@
 import { auth, signIn } from '@/auth';
 import UserHome from '@/components/UserHome';
+import { Suspense } from 'react';
 
 export default async function Home() {
   const session = await auth();
 
   return (
     <div className="">
-      {session && <UserHome session={session} />}
+      {session && (
+        <Suspense fallback="Loading...">
+          <UserHome session={session} />
+        </Suspense>
+      )}
       {!session && (
         <form
           action={async () => {

@@ -13,5 +13,11 @@ export default async function ProfilePage() {
     return redirect('/settings');
   }
 
-  return <ProfilePageContent profile={profile} isOurProfile={true} />;
+  return (
+    <ProfilePageContent
+      ourFollow={null}
+      profile={profile}
+      isOurProfile={true}
+    />
+  );
 }
