@@ -43,6 +43,13 @@ model Like {
   createdAt DateTime @default(now())
 }
 
+model BookMark {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @db.ObjectId
+  author    String // email
+  createdAt DateTime @default(now())
+}
+
 model Follower {
   id                    String   @id @default(auto()) @map("_id") @db.ObjectId
   followingProfileEmail String

@@ -1,11 +1,17 @@
 import Image from 'next/image';
 import Comment from './Comment';
 import LikesInfo from './LikesInfo';
-import { BookmarkIcon } from 'lucide-react';
 import { Suspense } from 'react';
 import SessionCommentForm from './SessionCommentForm';
-import { Comment as CommentModel, Like, Post, Profile } from '@prisma/client';
+import {
+  BookMark,
+  Comment as CommentModel,
+  Like,
+  Post,
+  Profile,
+} from '@prisma/client';
 import Preloader from './Preloader';
+import BookMarkButton from './BookMarkButton';
 
 export default async function SinglePostContent({
   post,
@@ -13,12 +19,14 @@ export default async function SinglePostContent({
   comments,
   commentsAuthors,
   myLike,
+  myBookMark,
 }: {
   post: Post;
   authorProfile: Profile;
   comments: CommentModel[];
   commentsAuthors: Profile[];
   myLike: Like | null;
+  myBookMark: BookMark | null;
 }) {
   return (
     <div>
@@ -55,7 +63,7 @@ export default async function SinglePostContent({
             <LikesInfo post={post} sessionLike={myLike} />
             <div className="flex items-center">
               <button>
-                <BookmarkIcon />
+                <BookMarkButton post={post} sessionBookmark={myBookMark} />
               </button>
             </div>
           </div>
