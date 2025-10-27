@@ -3,17 +3,20 @@
 import { postEntry } from '@/actions';
 import { Button, TextArea } from '@radix-ui/themes';
 import { CloudUploadIcon, SendIcon } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
 export default function CreatePage() {
   const [imageUrl, setImageUrl] = useState('');
   const [file, setFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
   const fileInRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   useEffect(() => {
     if (file) {
+      setIsUploading(true);
       const data = new FormData();
       data.set('file', file);
       fetch('/api/upload', {
@@ -22,6 +25,7 @@ export default function CreatePage() {
       }).then((response) => {
         response.json().then((url) => {
           setImageUrl(url);
+          setIsUploading(false);
         });
       });
     }
@@ -32,7 +36,7 @@ export default function CreatePage() {
       <form
         action={async (data) => {
           const id = await postEntry(data);
-          router.push(`/post/${id}`);
+          router.push(`/posts/${id}`);
           router.refresh();
         }}
       >
@@ -40,7 +44,15 @@ export default function CreatePage() {
         <div className="flex flex-col gap-4">
           <div>
             <div className="w-64 min-h-64 p-2 bg-gray-400 rounded-md relative">
-              {imageUrl && <img src={imageUrl} className="rounded-md" alt="" />}
+              {imageUrl && (
+                <Image
+                  src={imageUrl}
+                  className="rounded-md"
+                  alt=""
+                  width={260}
+                  height={260}
+                />
+              )}
               <div className="absolute inset-0 flex items-center justify-center">
                 <input
                   onChange={(ev) => setFile(ev.target.files?.[0] || null)}
@@ -49,12 +61,13 @@ export default function CreatePage() {
                   ref={fileInRef}
                 />
                 <Button
+                  disabled={isUploading}
                   onClick={() => fileInRef?.current?.click()}
                   type="button"
                   variant="surface"
                 >
-                  <CloudUploadIcon size={16} />
-                  Choose image
+                  {!isUploading && <CloudUploadIcon size={16} />}
+                  {isUploading ? 'Uploading...' : 'Choose image'}
                 </Button>
               </div>
             </div>

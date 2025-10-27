@@ -5,6 +5,7 @@ import { BookmarkIcon } from 'lucide-react';
 import { Suspense } from 'react';
 import SessionCommentForm from './SessionCommentForm';
 import { Comment as CommentModel, Like, Post, Profile } from '@prisma/client';
+import Preloader from './Preloader';
 
 export default async function SinglePostContent({
   post,
@@ -59,7 +60,7 @@ export default async function SinglePostContent({
             </div>
           </div>
           <div className="pt-8 border-t border-t-gray-400">
-            <Suspense>
+            <Suspense fallback={<Preloader />}>
               <SessionCommentForm postId={post.id} />
             </Suspense>
           </div>

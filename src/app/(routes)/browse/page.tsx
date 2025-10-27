@@ -8,8 +8,9 @@ export default async function BrowsePage() {
   });
   return (
     <div>
-      <div className="mb-4"></div>
-      <PostsGrid posts={posts} />
+      <div className="mb-4">
+        <PostsGrid posts={posts} />
+      </div>
     </div>
   );
 }

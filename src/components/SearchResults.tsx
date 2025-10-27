@@ -23,7 +23,7 @@ export default async function SearchResults({ query }: { query: string }) {
       {!profiles.length && (
         <div className="text-gray-500">No profiles found</div>
       )}
-      <div className="grid grid-cols-2 gap-2 mt-4">
+      <div className="grid sm:grid-cols-2 gap-2 mt-4">
         {profiles.map((profile) => (
           <Link
             href={`/users/${profile.username}`}

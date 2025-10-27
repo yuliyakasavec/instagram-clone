@@ -12,9 +12,11 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
   const fileInRef = useRef<HTMLInputElement>(null);
   const [file, setFile] = useState<File | null>(null);
   const [avatarUrl, setAvatarUrl] = useState(profile?.avatar || null);
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     if (file) {
+      setIsUploading(true);
       const data = new FormData();
       data.set('file', file);
       fetch('/api/upload', {
@@ -23,6 +25,7 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
       }).then((response) => {
         response.json().then((url) => {
           setAvatarUrl(url);
+          setIsUploading(false);
         });
       });
     }
@@ -51,12 +54,13 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
             onChange={(ev) => setFile(ev.target.files?.[0] || null)}
           />
           <Button
+            disabled={isUploading}
             type="button"
             variant="surface"
             onClick={() => fileInRef.current?.click()}
           >
-            <CloudUploadIcon />
-            Change avatar
+            {!isUploading && <CloudUploadIcon />}
+            {isUploading ? 'Uploading...' : 'Change avatar'}
           </Button>
         </div>
       </div>

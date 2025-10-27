@@ -1,5 +1,6 @@
 import Modal from '@/components/Modal';
 import ModalPostContent from '@/components/ModalPostContent';
+import Preloader from '@/components/Preloader';
 import { Suspense } from 'react';
 
 export default async function PostInModal({
@@ -11,7 +12,7 @@ export default async function PostInModal({
 
   return (
     <Modal>
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Preloader />}>
         <ModalPostContent postId={id} />
       </Suspense>
     </Modal>
