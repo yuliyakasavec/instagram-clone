@@ -5,7 +5,9 @@ import { ScaleLoader } from 'react-spinners';
 export default function Preloader() {
   return (
     <>
-      <ScaleLoader loading={true} speedMultiplier={4} />
+      <div>
+        <ScaleLoader color="#aaa" loading={true} speedMultiplier={4} />
+      </div>
     </>
   );
 }

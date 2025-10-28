@@ -19,7 +19,7 @@ export default function DesktopNav() {
           priority
           width={160}
           height={80}
-          className="-ml-2 filter brightness-0"
+          className="-ml-2 filter brightness-0 dark:invert"
         />
         <div className="ml-1 inline-flex flex-col gap-6 mt-8 *:flex *:items-center *:gap-2">
           <Link href={'/'}>

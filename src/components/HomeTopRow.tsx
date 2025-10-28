@@ -20,7 +20,7 @@ export default async function HomeTopRow({
       {profiles.map((profile) => (
         <div key={profile.id}>
           <div className="p-1 rounded-full bg-gradient-to-tr from-orange-300 to-red-600">
-            <div className="p-0.5 bg-white rounded-full">
+            <div className="p-0.5 bg-white dark:bg-black rounded-full">
               <Avatar
                 size="6"
                 radius="full"

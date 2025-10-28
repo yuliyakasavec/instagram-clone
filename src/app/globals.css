@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 :root {
   --red: rgb(207, 33, 66);
   --orange: rgb(230, 173, 77);

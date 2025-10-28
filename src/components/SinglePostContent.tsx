@@ -59,7 +59,7 @@ export default async function SinglePostContent({
               </div>
             ))}
           </div>
-          <div className="flex text-gray-700 items-center gap-2 justify-between py-4 mt-4 border-t border-t-gray-300">
+          <div className="flex text-gray-700 dark:text-gray-400 items-center gap-2 justify-between py-4 mt-4 border-t border-gray-300 dark:border-gray-700">
             <LikesInfo post={post} sessionLike={myLike} />
             <div className="flex items-center">
               <button>
@@ -67,7 +67,7 @@ export default async function SinglePostContent({
               </button>
             </div>
           </div>
-          <div className="pt-8 border-t border-t-gray-400">
+          <div className="pt-8 border-t border-gray-300 dark:border-gray-700">
             <Suspense fallback={<Preloader />}>
               <SessionCommentForm postId={post.id} />
             </Suspense>

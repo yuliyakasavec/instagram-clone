@@ -19,14 +19,16 @@ export default function Comment({
       <div className="w-full">
         <div className="flex justify-between gap-2">
           <div>
-            <h3 className="flex gap-1">{authorProfile?.name}</h3>
-            <h4 className="text-gray-500 text-sm -mt-1">
+            <h3 className="flex gap-1 dark:text-gray-300">
+              {authorProfile?.name}
+            </h3>
+            <h4 className="text-gray-600 dark:text-gray-500 text-sm -mt-1">
               @{authorProfile?.username}
             </h4>
           </div>
         </div>
         <div>
-          <div className="bg-gray-200 border border-gray-300 rounded-md p-4 mt-2">
+          <div className="bg-gray-200 dark:bg-gray-700 dark:border-0  dark:text-gray-400 border border-gray-300 rounded-md p-4 mt-2">
             <p>{text}</p>
           </div>
           <div className="text-xs text-gray-400 text-right">

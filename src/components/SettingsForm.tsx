@@ -2,8 +2,9 @@
 
 import { updateProfile } from '@/actions';
 import { Profile } from '@prisma/client';
-import { Button, TextArea, TextField } from '@radix-ui/themes';
+import { Button, Switch, TextArea, TextField } from '@radix-ui/themes';
 import { CloudUploadIcon } from 'lucide-react';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
@@ -13,6 +14,12 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
   const [file, setFile] = useState<File | null>(null);
   const [avatarUrl, setAvatarUrl] = useState(profile?.avatar || null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const theme = localStorage.getItem('theme') || 'light';
+    setIsDarkMode(theme === 'dark');
+  }, []);
 
   useEffect(() => {
     if (file) {
@@ -31,6 +38,19 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
     }
   }, [file]);
 
+  const handleThemeChange = (isDark: boolean) => {
+    const theme = isDark ? 'dark' : 'light';
+    const html = document.querySelector('html');
+
+    if (html) {
+      html.dataset.theme = theme;
+      html.classList.toggle('dark', isDark);
+    }
+
+    localStorage.setItem('theme', theme);
+    setIsDarkMode(isDark);
+  };
+
   return (
     <form
       action={async (data: FormData) => {
@@ -42,8 +62,15 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
       <input type="hidden" name="avatar" value={avatarUrl || ''} />
       <div className="flex gap-4 items-center">
         <div>
-          <div className="bg-gray-400 size-24 rounded-full overflow-hidden aspect-square shadow-md shadow-gray-400">
-            <img className="" src={avatarUrl || ''} alt="" />
+          <div className="bg-gray-400 size-24 rounded-full overflow-hidden aspect-square ring-2 ring-gray-300 dark:ring-gray-500">
+            <Image
+              src={avatarUrl || ''}
+              alt="Profile avatar"
+              width={96}
+              height={96}
+              className="object-cover w-full h-full"
+              priority
+            />
           </div>
         </div>
         <div>
@@ -58,9 +85,19 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
             type="button"
             variant="surface"
             onClick={() => fileInRef.current?.click()}
+            className="relative disabled:opacity-100 dark:bg-gray-800 dark:text-white dark:hover:bg-gray-700"
           >
-            {!isUploading && <CloudUploadIcon />}
-            {isUploading ? 'Uploading...' : 'Change avatar'}
+            {isUploading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span className="text-white dark:text-white">Uploading...</span>
+              </>
+            ) : (
+              <>
+                <CloudUploadIcon className="w-4 h-4" />
+                <span>Change avatar</span>
+              </>
+            )}
           </Button>
         </div>
       </div>
@@ -84,6 +121,10 @@ export default function SettingsForm({ profile }: { profile: Profile | null }) {
       />
       <p className="mt-2 font-bold">bio</p>
       <TextArea name="bio" defaultValue={profile?.bio || ''} />
+      <label className="flex gap-2 items-center mt-2">
+        <span>Dark mode </span>
+        <Switch checked={isDarkMode} onCheckedChange={handleThemeChange} />
+      </label>
       <div className="mt-4 flex justify-center">
         <Button variant="solid">Save settings</Button>
       </div>

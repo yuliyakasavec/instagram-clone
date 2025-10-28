@@ -35,7 +35,7 @@ export default function ProfilePageInfo({
       </section>
       <section className="mt-8 flex justify-center">
         <div className="size-48 p-2 rounded-full bg-gradient-to-tr from-orange-300 to-red-600">
-          <div className="size-44 p-2 bg-white rounded-full">
+          <div className="size-44 p-2 bg-white dark:bg-black rounded-full">
             <div className="size-40 aspect-square overflow-hidden rounded-full">
               <Image
                 src={profile.avatar || ''}

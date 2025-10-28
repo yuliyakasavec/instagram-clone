@@ -31,7 +31,13 @@ export default function BookMarkButton({
     >
       <input type="hidden" name="postId" value={post.id} />
       <button type="submit" className="">
-        <BookmarkIcon className={bookmarkedByMe ? ' fill-gray-800' : ''} />
+        <BookmarkIcon
+          className={
+            bookmarkedByMe
+              ? ' fill-gray-800 dark:text-white dark:fill-gray-300'
+              : 'dark:text-white'
+          }
+        />
       </button>
     </form>
   );

@@ -56,7 +56,7 @@ export default async function HomePosts({
               <div className="flex gap-2 items-center">
                 <Avatar src={profile?.avatar || ''} size={34} />
                 <Link
-                  className="font-bold text-gray-700"
+                  className="font-bold text-gray-700 dark:text-gray-300"
                   href={`/users/${profile?.username}`}
                 >
                   {profile?.name}
@@ -78,7 +78,9 @@ export default async function HomePosts({
                 />
               </div>
             </div>
-            <p className="mt-2 text-slate-600">{post.description}</p>
+            <p className="mt-2 text-slate-600 dark:text-gray-400">
+              {post.description}
+            </p>
           </div>
         );
       })}
